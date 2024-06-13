@@ -1,57 +1,43 @@
 import random
-
-def get_user_choice():
-    user_choice = input("Choose rock, paper, or scissors: ").strip().lower()
-    while user_choice not in ["rock", "paper", "scissors"]:
-        print("Invalid choice. Please choose rock, paper, or scissors.")
-        user_choice = input("Choose rock, paper, or scissors: ").strip().lower()
-    return user_choice
-
-def get_computer_choice():
-    choices = ["rock", "paper", "scissors"]
-    return random.choice(choices)
-
-def determine_winner(user_choice, computer_choice):
-    if user_choice == computer_choice:
-        return "tie"
-    elif (user_choice == "rock" and computer_choice == "scissors") or \
-         (user_choice == "scissors" and computer_choice == "paper") or \
-         (user_choice == "paper" and computer_choice == "rock"):
-        return "user"
-    else:
-        return "computer"
-
-def display_result(user_choice, computer_choice, winner):
-    print(f"You chose: {user_choice}")
-    print(f"Computer chose: {computer_choice}")
-    if winner == "tie":
-        print("It's a tie!")
-    elif winner == "user":
+print("Rock,paper,scissor game:")
+comp_point=0
+user_point=0
+while True:
+    user=input("Enter rock,paper or scissor:")
+    choices=["rock","paper","scissor"]
+    comp=random.choice(choices)
+    print("Your choice:",user)
+    print("Computer choice:",comp)
+    if comp==user:
+        print("It's a tie")
+        continue
+    elif comp=="rock" and user=="paper":
         print("You win!")
-    else:
+        user_point+=1
+    elif comp=="paper" and user=="rock":
         print("Computer wins!")
-
-def play_game():
-    user_score = 0
-    computer_score = 0
-
-    while True:
-        user_choice = get_user_choice()
-        computer_choice = get_computer_choice()
-        winner = determine_winner(user_choice, computer_choice)
-        
-        if winner == "user":
-            user_score += 1
-        elif winner == "computer":
-            computer_score += 1
-        
-        display_result(user_choice, computer_choice, winner)
-        print(f"Score: You {user_score} - {computer_score} Computer")
-        
-        play_again = input("Do you want to play again? (yes/no): ").strip().lower()
-        if play_again != "yes":
-            print("Thank you for playing.")
-            break
-
-if __name__ == "__main__":
-    play_game()
+        comp_point+=1
+    elif comp=="scissor" and user=="paper":
+        print("Computer wins!")
+        comp_point+=1
+    elif comp=="paper" and user=="scissor":
+        print("You win!")
+        user_point+=1
+    elif comp=="rock" and user=="scissor":
+        print("Computer wins!")
+        comp_point+=1
+    elif comp=="scissor" and user=="rock":
+        print("You win!")
+        user_point+=1
+    else:
+        print("Invalid input")
+        continue
+    ans=input("Do you want to play again? (yes or no):")
+    if ans=="yes" or ans=="YES":
+        continue
+    else:
+        print("Game over")
+        break
+print("Scorecard:")
+print("Your score:",user_point)
+print("Computer's score:",comp_point)
